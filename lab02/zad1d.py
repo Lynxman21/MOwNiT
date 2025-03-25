@@ -9,26 +9,28 @@ def machine_epsilon():
         epsilon = epsilon/2
     return epsilon_last
 
-def exponent(x):
+def better_exponent(x):
     val = 1
     to_add = 1
     index = 1
+    new_x = abs(x)
     epsilon = machine_epsilon()
 
     while abs(to_add)>epsilon:
-        to_add *= x/index
+        to_add *= new_x/index
         val += to_add
         index += 1
     
-    return val
-
-
+    if x >= 0:
+        return val
+    else:
+        return 1/val
 
 if __name__ == "__main__":
     arr = [1,-1,5,-5,10,-10]
 
     for element in arr:
         print("Dla x = ",element)
-        print("Wartosc zwrocona z exponent: ",exponent(element))
+        print("Wartosc zwrocona z exponent: ",better_exponent(element))
         print("Wartosc zwrocna z exp: ",exp(element))
         print("-----------------------------------------------------")
